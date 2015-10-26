@@ -45,13 +45,13 @@ public class EnemyController : MonoBehaviour {
 	void Update () {
 		if (killed)
 			Destroy (this);
-		if (stat == enemystatus.spawned) {
+		if (stat == enemystatus.spawned && ParentScript.stat != gamestatus.paused) {
 
 			if (Input.GetKey(KeyCode.Space))
 			{
 				tapped();
 			}
-			if (Input.touchCount == 1) {
+			if (Input.touchCount >= 1) {
 				Vector3 wp = Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position);
 				Vector2 touchPos = new Vector2 (wp.x, wp.y);
 				if (GetComponent<Collider2D>() == Physics2D.OverlapPoint (touchPos)) {

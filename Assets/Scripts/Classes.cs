@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Text.RegularExpressions;
 
-public enum gamestatus {paused, running, resseted};
+public enum gamestatus {paused, running};
 
 public enum enemystatus {spawned, killed};
 	

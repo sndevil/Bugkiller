@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
-	//public enum 
 	public gamestatus stat;
 	public RectTransform canvastransform;
 	public GameObject firstm, secondm, thirdm;
@@ -18,7 +17,7 @@ public class GameController : MonoBehaviour {
 	private float enemypersec = 0.2f;
 	private bool list1clean = true, list2clean = false;
 	private float enemyspeed = 3f;
-	private int starttime = 0,levelcounter=0,level = 1;
+	private int starttime = 0,levelcounter=0,level = 1,wave = 1;
 	private int score = 0,lives = 3;
 	private FarsiConvertor Farsisaz = new FarsiConvertor();
 
@@ -31,6 +30,7 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		stat = gamestatus.running;
 		firstm.SetActive (false);
 		secondm.SetActive (false);
 		thirdm.SetActive (false);
@@ -43,15 +43,23 @@ public class GameController : MonoBehaviour {
 			if (framecounter >= (int)30 / enemypersec) {
 				levelcounter++;
 				if (levelcounter > 3) {
-					if (level < 10) {
-						enemyspeed += 1f;
-						enemypersec *= 1.2f;
-					} else if (level < 20) {
-						enemyspeed += 0.5f;
-						enemypersec *= 1.1f;
-					} else if (level < 30) {
-						enemyspeed += 0.2f;
-						enemypersec *= 1.03f;
+					if (level < 10 && wave == 1) {
+						enemyspeed += 2f;
+						enemypersec *= 2f;
+						wave++;
+					}else if (level>= 10 && level < 25 && wave== 2)
+					{
+						enemyspeed += 2f;
+						enemypersec *= 2f;
+						wave ++;
+					} else if (level >= 25 && level < 40 && wave == 3) {
+						enemyspeed += 2f;
+						enemypersec *= 2f;
+						wave++;
+					} else if (level >= 40 && level < 70 && wave == 4) {
+						enemyspeed += 2f;
+						enemypersec *= 2f;
+						wave++;
 					}
 
 			
@@ -167,6 +175,7 @@ public class GameController : MonoBehaviour {
 	public void gameEnded()
 	{
 		Time.timeScale = 0;
+		stat = gamestatus.paused;
 		EndImage.SetActive (true);
 		Resulttext.text = score.ToString ();
 	}
